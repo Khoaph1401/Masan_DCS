@@ -1,0 +1,132 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "ShiftSetting";
+    /* lấy head-shifts từ database*/
+    List<HeadShift> headShifts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HeadShift>>(TempData["headShifts"] as string);
+    Shift shift = Newtonsoft.Json.JsonConvert.DeserializeObject<Shift>(TempData["shift"] as string);
+    int a = 1;
+    string getTime(DateTime time)
+    {
+        return time.ToString("HH:mm:ss");
+    }
+
+    string name1 = "";
+    string name2 = "";
+    string name3 = "";
+
+    string role = Accessor.HttpContext.Session.GetString("role");
+    if (role == "admin")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+}
+
+<form class="shift-setting-form form-group bg-info" method="post" enctype="multipart/form-data" asp-controller="GeneralSetting" asp-action="UpdateShift">
+
+    <div class="shift-content">
+        <h5>Ca 1:</h5>
+        <div class="form-control">
+            Thời gian bắt đầu
+            <input type="time" name="start1" value="@getTime(shift.ShiftStartTime1)" />
+        </div>
+        <div class="form-control">
+            Mã trưởng ca
+            <select id="headShift1" name="headShift1">
+                @*name : là tên tham số sẽ được nhận bên method action*@
+                <option value="" selected>Chọn trưởng ca</option>
+                @foreach (HeadShift hs in headShifts)
+                {
+                    if (shift.HeadShiftCode1 == hs.Code)
+                    {
+                        <option value="@hs.Code" selected>@hs.Code</option>
+
+                        name1 = hs.FullName;
+                    }
+                    else
+                    {
+                        <option value="@hs.Code">@hs.Code</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-control">
+            Trưởng ca
+            <p>@name1</p>
+        </div>
+
+    </div>
+    <div class="shift-content">
+        <h5>Ca 2:</h5>
+        <div class="form-control">
+            Thời gian bắt đầu
+            <input type="time" name="start2" value="@getTime(shift.ShiftStartTime2)" />
+        </div>
+        <div class="form-control">
+            Mã trưởng ca
+            <select id="headShift2" name="headShift2">
+                <option value="" selected>Chọn trưởng ca</option>
+                @foreach (HeadShift hs in headShifts)
+                {
+                    if (shift.HeadShiftCode2 == hs.Code)
+                    {
+                        <option value="@hs.Code" selected asp->@hs.Code</option>
+
+                        name2 = hs.FullName;
+                    }
+                    else
+                    {
+                        <option value="@hs.Code">@hs.Code</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-control">
+            Trưởng ca
+            <p>@name2</p>
+        </div>
+
+    </div>
+    <div class="shift-content">
+        <h5>Ca 3:</h5>
+        <div class="form-control">
+            Thời gian bắt đầu
+            <input type="time" name="start3" value="@getTime(shift.ShiftStartTime3)" />
+        </div>
+        <div class="form-control">
+            Mã trưởng ca
+            <select id="headShift3" name="headShift3">
+                <option value="" selected>Chọn trưởng ca</option>
+                @foreach (HeadShift hs in headShifts)
+                {
+                    if (shift.HeadShiftCode3 == hs.Code)
+                    {
+                        <option value="@hs.Code" selected>@hs.Code</option>
+
+                        name3 = hs.FullName;
+                    }
+                    else
+                    {
+                        <option value="@hs.Code">@hs.Code</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-control">
+            Trưởng ca
+            <p>@name3</p>
+        </div>
+
+    </div>
+    <div style="display:flex">
+        <button class="btn btn-primary" type="submit" style="font-size:20px"> Xác nhận</button>
+        <button class="btn btn-danger" style="font-size:20px"> Hủy</button>
+    </div>
+</form>
+
+
+

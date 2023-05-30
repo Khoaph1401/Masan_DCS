@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    List<HeadShift> headShifts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HeadShift>>(TempData["headShifts"] as string);
+    List<Product> products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(TempData["products"] as string);
+    string role = Accessor.HttpContext.Session.GetString("role");
+    if (role == "admin")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+}
+
+<h3 class="text-center" style="color:blue">DANH SÁCH TRƯỞNG CA VÀ SẢN PHẨM</h3>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+{
+    <div class="alert alert-info">
+        <strong>Thông báo:  </strong> @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+    </div>
+}
+
+<div>
+    <div class="row d-flex justify-content-between">
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <form method="post" enctype="multipart/form-data" asp-controller="GeneralSetting" asp-action="AddHeadShift">
+                <p class="h5" style="color:orangered"><strong> Trưởng ca</strong></p>
+                <br />
+                <div class="form-group" style="margin-left:30px">
+                    <label><strong>Mã trưởng ca</strong></label>
+                    <input class="form-control" name="code" placeholder="Nhập mã trưởng ca" />
+                </div>
+                <div class="form-group" style="margin-left:30px">
+                    <br />
+                    <label><strong>Họ và tên</strong></label>
+                    <input class="form-control" name="fullName" placeholder="Nhập họ và tên" />
+                </div>
+
+                @await Html.PartialAsync("_Table1", headShifts)
+
+                <br />
+                <div class="row d-flex justify-content-around">
+                    <button type="submit" class="btn btn-primary" style="padding:8px 35px">Thêm </button>
+
+                </div>
+            </form>
+            @using (Html.BeginForm("RemoveHeadShift", "GeneralSetting", FormMethod.Post))
+            {
+                <button class="btn btn-danger" type="submit" style="padding: 8px 35px">Xóa trưởng ca </button>
+            }
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <form method="post" enctype="multipart/form-data" asp-controller="GeneralSetting" asp-action="AddProduct">
+                <p class="h5" style="color:orangered"><strong> Sản phẩm</strong></p>
+                <br />
+                <div class="form-group" style="margin-left:30px">
+                    <label><strong>Mã sản phẩm</strong></label>
+                    <input class="form-control" name="productCode" placeholder="Nhập mã sản phẩm" />
+                </div>
+                <div class="form-group" style="margin-left:30px">
+                    <br />
+                    <label><strong>Tên sản phẩm</strong></label>
+                    <input class="form-control" name="productName" placeholder="Nhập tên sản phẩm" />
+                </div>
+
+                @await Html.PartialAsync("_Table2", products)
+
+                <br />
+                <div class="row d-flex justify-content-around">
+                    <button type="submit" class="btn btn-primary" style="padding: 8px 35px">Thêm </button>
+                </div>
+
+            </form>
+
+            @using (Html.BeginForm("RemoveProduct", "GeneralSetting", FormMethod.Post))
+            {
+                <button class="btn btn-danger" type="submit" style="padding: 8px 35px">Xóa sản phẩm</button>
+            }
+        </div>
+
+    </div>
+</div>
+
+<div class="form-group">
+    <form class="d-flex align-items-center justify-content-center">
+        <button type="submit" class="btn btn-secondary" style="padding:10px 35px" asp-controller="Account" asp-action="Login">Thoát </button>
+    </form>
+
+</div>

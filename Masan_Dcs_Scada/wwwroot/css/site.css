@@ -1,0 +1,155 @@
+﻿ Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. 
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+ Provide sufficient contrast against white background 
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+ Sticky footer styles
+-------------------------------------------------- 
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+ Sticky footer styles
+-------------------------------------------------- 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+   Margin bottom by footer height 
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;  Vertically center the text there 
+}
+th{
+    border-left:1px solid #888;
+    padding: 5px 10px;
+}
+
+td{
+    padding: 0px 10px;
+}
+
+.shift-setting-form{
+    width: 800px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shift-content{
+    width: 400px;
+    height: 170px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+    .shift-content .form-control {
+        display: flex;
+        justify-content: space-between;
+    }
+
+.shift-setting-form h1 {
+    font-weight: bold;
+    color: red;
+    font-size: 24px;
+}
+
+.stock-form {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 40px;
+    margin-left:330px;
+}
+
+    .stock-form .form-control {
+        display: flex;
+        justify-content: space-between;
+    }
+
+.parameter-form {
+    width: 700px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 40px;
+    margin-left: 200px;
+}
+
+    .parameter-form .form-control {
+        display: flex;
+        justify-content: space-between;
+    }
+
+.form-block{
+    width: 80%;
+    height: auto;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction:column;
+    border: 2px solid #000;
+    padding: 10px;
+}
+
+.form-block > *{
+    margin-bottom: 6px;
+}
+

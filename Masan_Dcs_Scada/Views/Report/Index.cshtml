@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Xuất báo cáo";
+
+    string role = Accessor.HttpContext.Session.GetString("role");
+    if (role == "admin")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+}
+
+<form class="stock-form form-group bg-info" method="post" enctype="multipart/form-data" asp-controller="Report" asp-action="GetReport">
+    <h4 style="color:red;">IN BÁO CÁO</h4>
+    <div class="form-control">
+        Từ ngày
+        <input type="date" name="from" value="" />
+    </div>
+    <div class="form-control">
+        Đến ngày
+        <input type="date" name="to" value="" />
+    </div>
+
+    <div style="display:flex">
+        <button class="btn btn-primary" type="submit" style="font-size:20px"> Xác nhận</button>
+    </div>
+</form>
+
+
+

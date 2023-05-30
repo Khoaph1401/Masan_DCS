@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Nhập kho";
+    List<Product> products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(TempData["products"] as string);
+    string role = Accessor.HttpContext.Session.GetString("role");
+    if (role == "admin")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+}
+
+<form class="stock-form form-group bg-info" method="post" enctype="multipart/form-data" asp-controller="Stock" asp-action="InsertStock">
+    <h4 style="color:red;">NHẬP SẢN LƯỢNG KHO</h4>
+    <div class="form-control">
+        Ngày sản xuất
+        <input type="date" name="date" value="" />
+    </div>
+    <div class="form-control">
+        Mã sản phẩm
+        <select id="productCode" name="productCode" required>
+            <option value="" selected>Chọn sản phẩm</option>
+            @foreach (Product pd in products)
+            {
+                <option class="abc" value="@pd.Code" pdName="@pd.Name">@pd.Code</option>
+            }
+        </select>
+    </div>
+    @*<div class="form-control">
+        Tên sản phẩm
+        <input type="text" name="productName" value="" />
+    </div>
+    <script>
+        document.querySelectorAll(".abc").forEach(option => {
+
+            option.addEventListener("click", () => {
+                alert("aaa" + option.getAttribute("pdName"))
+                document.querySelector("#productName").value = option.getAttribute("pdName");
+            })
+        });
+    </script>*@
+    <div class="form-control">
+        Ca sản xuất
+        <select name="shift" required>
+            <option value="" selected>Chọn ca</option>
+            <option value="shift1">Ca1</option>
+            <option value="shift2">Ca2</option>
+            <option value="shift3">Ca3</option>
+        </select>
+    </div>
+    <div class="form-control">
+        Dây chuyền
+        <select name="line" required>
+            <option value="" selected>Chọn dây chuyền</option>
+            <option value="line1">Dây chuyền 1</option>
+            <option value="line2">Dây chuyền 2</option>
+            <option value="line3">Dây chuyền 3</option>
+            <option value="line4">Dây chuyền 4</option>
+            <option value="line5">Dây chuyền 5</option>
+            <option value="line6">Dây chuyền 6</option>
+            <option value="line7">Dây chuyền 7</option>
+            <option value="line8">Dây chuyền 8</option>
+        </select>
+    </div>
+    <div class="form-control">
+        Sản lượng thực
+        <input type="number" name="quantity" value="" style="width:150px;" required/>
+    </div>
+    <div style="display:flex">
+        <button class="btn btn-primary" type="submit" style="font-size:20px"> Xác nhận</button>
+        <button class="btn btn-danger" style="font-size:20px"> Hủy</button>
+    </div>
+</form>
+
+
+

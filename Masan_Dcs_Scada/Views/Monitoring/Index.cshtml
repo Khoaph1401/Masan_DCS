@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    List<SystemAttribute> systemAttributes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SystemAttribute>>(TempData["systemAttributes"] as string);
+    List<Quantity> quantities = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Quantity>>(TempData["quantities"] as string);
+
+
+    Random rnd = new Random();
+    int getRandom()
+    {
+        return rnd.Next(1, 60);
+    }
+
+    int getSpeed(int line, int machine)
+    {
+        return systemAttributes.Where(sa =>
+        {
+            if (sa.Line == line && sa.Machine == machine)
+                return true;
+            return false;
+        }).FirstOrDefault().StandardSpeed;
+    }
+
+    int getSanLuong(int line, int machine)
+    {
+        string productCode = systemAttributes.Where(sa =>
+        {
+            if (sa.Line == line && sa.Machine == machine)
+                return true;
+            return false;
+        }).FirstOrDefault().ProductCode;
+
+        int sanluong = 0;
+        foreach (Quantity quantity in quantities)
+        {
+            if (quantity.ProductCode == productCode)
+                sanluong += quantity.ProductNumber;
+        }
+        return sanluong;
+    }
+    string role = Accessor.HttpContext.Session.GetString("role");
+    if (role == "admin")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+}
+
+<div class="container">
+    @{
+        for (int i = 1; i < 9; i++)
+        {
+            <h4>LINE @i</h4>
+            <div class="row">
+                @{
+                    for (int j = 1; j < 5; j++)
+                    {
+                        <form class="col-3" style="border: 1px solid;">
+                            <div style="display:flex; justify-content:space-between;">
+                                <h4 style="font-size:17px;">Máy @($"{i}.{j}")</h4>
+                                <span></span>
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">Tốc độ máy</p>
+                                <input type="number" style="width:100px;" value="@(getSpeed(i,j))" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">Hiệu suất</p>
+                                <input type="number" style="width:100px;" value="@(getRandom())" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">Tổng sản lượng</p>
+                                <input type="number" style="width:100px;" value="@(getSanLuong(i,j))" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">Số gói bị cấn gia vị</p>
+                                <input type="number" style="width:100px;" value="@(getRandom())" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">% cấn gia vị</p>
+                                <input type="number" style="width:100px;" value="@(getRandom())" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">Số gói rỗng</p>
+                                <input type="number" style="width:100px;" value="@(getRandom())" />
+                            </div>
+                            <div class="form-control" style="display:flex; justify-content:space-between;">
+                                <p style="font-size:13px;">% Gói rỗng</p>
+                                <input type="number" style="width:100px;" value="@(getRandom())" />
+                            </div>
+                        </form>
+                    }
+                }
+            </div>
+        }
+    }
+</div>

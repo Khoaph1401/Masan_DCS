@@ -1,0 +1,40 @@
+﻿
+@model Masan_Dcs_Scada.Models.Account
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+{
+    <div class="alert alert-info">
+        <strong>Thông báo:  </strong> @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+    </div>
+}
+
+<div style="width: 700px;margin: auto auto;">
+    <h2 class="text-center" style="color:blue">Đăng nhập giao diện quản lý đóng gói</h2>
+    <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+        <div class="form-group">
+            <label>Tên người dùng </label>
+            <input class="form-control" name="name" placeholder="Nhập tên người dùng" />
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input class="form-control" type="password" name="password" placeholder="Nhập mật khẩu" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-left:30px">Đăng nhập</button>
+        <button type="submit" class="btn btn-success" style="margin-left:30px" formmethod="get" asp-controller="Account" asp-action="ChangePassword">Đổi mật khẩu</button>
+        <button type="submit" class="btn btn-danger" style="margin-left:30px">Thoát</button>
+    </form>
+
+
+</div>
+
+
+
