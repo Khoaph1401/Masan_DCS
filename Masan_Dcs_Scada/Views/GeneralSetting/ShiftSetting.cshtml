@@ -3,8 +3,46 @@
 @{
     ViewData["Title"] = "ShiftSetting";
     /* lấy head-shifts từ database*/
-    List<HeadShift> headShifts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HeadShift>>(TempData["headShifts"] as string);
-    Shift shift = Newtonsoft.Json.JsonConvert.DeserializeObject<Shift>(TempData["shift"] as string);
+    @* List<HeadShift> headShifts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<HeadShift>>(TempData["headShifts"] as string); *@
+
+    
+    HeadShift headShift1 = new HeadShift
+    {
+        Code = "1",
+        FullName = "a"
+    };
+
+    HeadShift headShift2 = new HeadShift
+    {
+        Code = "2",
+        FullName = "b"
+    };
+
+    HeadShift headShift3 = new HeadShift
+    {
+        Code = "3",
+        FullName = "c"
+    };
+
+    List<HeadShift> headShifts = new List<HeadShift>();
+    headShifts.Add(headShift1);
+    headShifts.Add(headShift2);
+    headShifts.Add(headShift3);
+
+    @* Shift shift = Newtonsoft.Json.JsonConvert.DeserializeObject<Shift>(TempData["shift"] as string); *@
+    
+    Shift shift = new Shift
+    {
+        ShiftId = 1,
+        HeadShiftCode1 = "1",
+        HeadShiftCode2 = "2",
+        HeadShiftCode3 = "3",
+        HeadShift1 = headShift1,
+        HeadShift2 = headShift2,
+        HeadShift3 = headShift3,
+    };
+
+
     int a = 1;
     string getTime(DateTime time)
     {
@@ -15,7 +53,8 @@
     string name2 = "";
     string name3 = "";
 
-    string role = Accessor.HttpContext.Session.GetString("role");
+    @* string role = Accessor.HttpContext.Session.GetString("role"); *@
+    string role = "admin"; 
     if (role == "admin")
     {
         Layout = "_Layout";

@@ -144,18 +144,18 @@ namespace Masan_Dcs_Scada.Controllers
 
         public IActionResult ShiftSetting()
         {
-            TempData["headShifts"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.HeadShifts.ToList());
-            TempData["products"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Products.ToList());
-            if(_db.Shifts.ToList().Count == 0)
-            {
-                _db.Shifts.Add(new Shift() { ShiftId = 1 });
-                _db.SaveChanges();
-                TempData["shift"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Shifts.ToList()[0]);
-            }
-            else
-            {
-                TempData["shift"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Shifts.ToList()[0]);
-            }
+            // TempData["headShifts"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.HeadShifts.ToList());
+            // TempData["products"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Products.ToList());
+            // if(_db.Shifts.ToList().Count == 0)
+            // {
+            //     _db.Shifts.Add(new Shift() { ShiftId = 1 });
+            //     _db.SaveChanges();
+            //     TempData["shift"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Shifts.ToList()[0]);
+            // }
+            // else
+            // {
+            //     TempData["shift"] = Newtonsoft.Json.JsonConvert.SerializeObject(_db.Shifts.ToList()[0]);
+            // }
             return View();
         }
 
